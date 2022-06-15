@@ -18,21 +18,21 @@ let modifyFile3 = (val) => {
 };
 
 const proccessData = (data) => {
-  let msg = "";
+  let message = "";
   
   if (data?.message != undefined) {
-    msg = data?.msg;
+    message = data?.message;
   } else if (data?.length) {
     data.forEach((item) => {
-      if (item?.msg != undefined) {
-        msg = item?.msg;
+      if (item?.message != undefined) {
+        message = item?.message;
       }
-      if (item?.data?.msg != undefined) {
-        msg = item?.data?.msg;
+      if (item?.data?.message != undefined) {
+        message = item?.data?.message;
       }
     })
   }
-  return msg.split(" ")[1];
+  return message.split(" ")[1];
 }
 
 // TODO: Kerjakan bacaData
