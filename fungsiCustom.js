@@ -17,9 +17,9 @@ let modifyFile3 = (val) => {
   file3 = val;
 };
 
-const proccessData = (data) => {
+const processData = (data) => {
   let message = "";
-  
+
   if (data?.message != undefined) {
     message = data?.message;
   } else if (data?.length) {
@@ -27,43 +27,46 @@ const proccessData = (data) => {
       if (item?.message != undefined) {
         message = item?.message;
       }
+
       if (item?.data?.message != undefined) {
         message = item?.data?.message;
       }
-    })
+    });
   }
+
   return message.split(" ")[1];
 }
 
 // TODO: Kerjakan bacaData
 // gunakan variabel file1, file2, dan file3
-const bacaData = (fnCallBack) => {
+const bacaData =  (fnCallback) => {
   let result = [];
-  fs.readFile(file2, {encoding: "utf8"}, (err, data) => {
+  fs.readFile(file1, { encoding: "utf8" }, (err, data) => {
     if (err) {
-      fnCallBack(err, null);
+      fnCallback(err, null);
       return;
     }
-    result.push(proccessData(JSON.parse(data)));
 
-    fs.readFile(file2, {encoding: "utf8"}, (err, data) => {
+    result.push(processData(JSON.parse(data)));
+    fs.readFile(file2, { encoding: "utf8" }, (err, data) => {
       if (err) {
-        fnCallBack(err, null);
+        fnCallback(err, null);
         return;
       }
-      result.push(proccessData(JSON.parse(data)));
 
-      fs.readFile(file3, {encoding: "utf8"}, (err, data) => {
+      result.push(processData(JSON.parse(data)));
+      fs.readFile(file3, { encoding: "utf8" }, (err, data) => {
         if (err) {
-          fnCallBack(err, null);
+          fnCallback(err, null);
           return;
         }
-        result.push(proccessData(JSON.parse(data)));
-        
-        fnCallBack(err, result);
-      })
-    })
-  })
+
+        result.push(processData(JSON.parse(data)));
+        fnCallback(err, result);
+      });
+    });
+  });
+  
 }
 
 // ! JANGAN DIMODIFIKASI
